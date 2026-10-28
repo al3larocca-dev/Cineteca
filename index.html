@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cineteca</title>
+<title>CineTeca</title>
 <link rel="manifest" href="manifest.json"><meta name="theme-color" content="#ff4f6d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
 <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js'))</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;800&family=Figtree:wght@400;500;600&display=swap">
@@ -80,19 +80,22 @@ h1{margin:0;font-size:36px;font-weight:800;letter-spacing:-1.3px;line-height:1}
 .strip{display:flex;gap:12px;overflow-x:auto;padding:4px 0 10px}.strip .pt{width:100px;flex:none}
 .rk{display:flex;align-items:center;gap:12px;width:100%;padding:10px 0;border:0;border-bottom:1px solid var(--line);background:none;color:var(--tx);font:inherit;font-size:15px;text-align:left}.rk small{display:block}
 .n{width:28px;height:28px;border-radius:50%;background:var(--sf2);display:grid;place-items:center;font-size:13px;flex:none}.th{width:40px;border-radius:8px;flex:none;box-shadow:none}.mu{color:var(--mut);font-size:13px}
+.sbr{display:flex;gap:10px;align-items:center;margin-top:18px}.sbr .sb{margin:0;flex:1}.sortb{width:50px;height:50px;border-radius:18px}.sortb.on{background:var(--ac);color:#fff}
+.so{padding:16px 0;font-size:16px}.ck{color:var(--ac);font-size:18px}
 </style></head><body>
 <div id="app"></div>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Math.random().toString(36).slice(2,9);
-const I={search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="M15 5l-7 7 7 7"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',text:'<path d="M5 6h14M5 12h14M5 18h9"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',film:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',img:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-9 9"/>',trophy:'<path d="M8 4h8v6a4 4 0 0 1-8 0zM8 6H4v1a3 3 0 0 0 4 3M16 6h4v1a3 3 0 0 1-4 3M12 14v4M8 21h8"/>'};
+const I={search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="M15 5l-7 7 7 7"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',text:'<path d="M5 6h14M5 12h14M5 18h9"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',film:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',img:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-9 9"/>',trophy:'<path d="M8 4h8v6a4 4 0 0 1-8 0zM8 6H4v1a3 3 0 0 0 4 3M16 6h4v1a3 3 0 0 1-4 3M12 14v4M8 21h8"/>',sort:'<path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"/>'};
 const ic=(n,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
 const FC=[['#5b4bff','#9a6bff'],['#ff4f6d','#ff8a5c'],['#12b5a6','#4ddc9a'],['#f2a31b','#ffd166'],['#2f80ed','#56ccf2'],['#d13fbf','#ff7ad9']];
 const PLAT=['Netflix','Prime Video','Disney+','NOW','Apple TV+','Paramount+','RaiPlay','Blu-ray/DVD'];
 const grad=c=>{const p=FC.find(x=>x[0]===c);return p?[p[0],p[1]]:[c,c+'cc']};
-let db={folders:[],movies:[]},st={fid:null,q:''},tmp=null,pushed=false,onYes=null;
+let db={folders:[],movies:[]},st={fid:null,q:'',sort:'ins'},tmp=null,pushed=false,onYes=null;
 try{const r=localStorage.getItem('cineteca');if(r)db=JSON.parse(r)}catch(e){}
+try{const so=localStorage.getItem('cineteca_sort');if(['ins','ya','yd','sa','sd','dir'].includes(so))st.sort=so}catch(e){}
 function save(){try{localStorage.setItem('cineteca',JSON.stringify(db))}catch(e){toast('Memoria piena: usa copertine più piccole')}}
 function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
 const fo=id=>db.folders.find(f=>f.id===id),mv=id=>db.movies.find(m=>m.id===id);
@@ -109,14 +112,14 @@ function render(keep){
   let h='';
   if(!st.fid){
     const res=st.q?db.movies.filter(match):[];
-    h=`<header><div class="top"><div class="grow"><h1>Cineteca</h1><div class="sub">${db.movies.length} film in ${db.folders.length} cartelle</div></div><button class="ib" onclick="rank()" aria-label="Classifiche">${ic('trophy')}</button><button class="ib" onclick="backup()" aria-label="Impostazioni">${ic('gear')}</button></div>${search('Cerca un film…')}</header>`;
+    h=`<header><div class="top"><div class="grow"><h1>CineTeca</h1><div class="sub">${db.movies.length} film in ${db.folders.length} cartelle</div></div><button class="ib" onclick="rank()" aria-label="Classifiche">${ic('trophy')}</button><button class="ib" onclick="backup()" aria-label="Impostazioni">${ic('gear')}</button></div>${search('Cerca un film…')}</header>`;
     if(st.q)h+=res.length?`<div class="g3">${res.map(poster).join('')}</div>`:emptyBox('search','Nessun risultato','Prova con un altro titolo o regista.');
     else if(!db.folders.length)h+=emptyBox('folder','Crea la prima cartella','Tocca + e dai un nome, per esempio “Thriller” o “Da rivedere”.');
     else h+=`<div class="g2">${db.folders.map(f=>{const g=grad(f.color);return `<button class="fold" style="--a:${g[0]};--b:${g[1]}" onclick="openFolder('${f.id}')">${fan(f)}<b>${esc(f.name)}</b><span>${cnt(f.id)} film</span></button>`}).join('')}</div>`;
     h+=`<button class="fab" onclick="folderForm()" aria-label="Nuova cartella">${ic('plus',30)}</button>`;
   }else{
-    const f=fo(st.fid),ms=db.movies.filter(m=>m.fid===f.id&&match(m));
-    h=`<header><div class="top"><button class="ib" onclick="goHome()" aria-label="Indietro">${ic('back')}</button><div class="grow"><h1 style="font-size:28px">${esc(f.name)}</h1><div class="sub">${cnt(f.id)} film</div></div><button class="ib" onclick="folderForm('${f.id}')" aria-label="Modifica cartella">${ic('edit',20)}</button></div>${search('Cerca in questa cartella…')}</header>`;
+    const f=fo(st.fid),ms=sortMovies(db.movies.filter(m=>m.fid===f.id&&match(m)));
+    h=`<header><div class="top"><button class="ib" onclick="goHome()" aria-label="Indietro">${ic('back')}</button><div class="grow"><h1 style="font-size:28px">${esc(f.name)}</h1><div class="sub">${cnt(f.id)} film${st.sort!=='ins'?' · '+SORTS[st.sort]:''}</div></div><button class="ib" onclick="folderForm('${f.id}')" aria-label="Modifica cartella">${ic('edit',20)}</button></div><div class="sbr">${search('Cerca in questa cartella…')}<button class="ib sortb${st.sort!=='ins'?' on':''}" onclick="sortSheet()" aria-label="Ordina">${ic('sort',22)}</button></div></header>`;
     h+=ms.length?`<div class="g3">${ms.map(poster).join('')}</div>`:(st.q?emptyBox('search','Nessun risultato','Prova con un altro titolo.'):emptyBox('film','Cartella vuota','Tocca + per aggiungere il primo film.'));
     h+=`<button class="fab" onclick="movieForm()" aria-label="Aggiungi film">${ic('plus',30)}</button>`;
   }
@@ -230,6 +233,16 @@ function rank(){
   const tl=(t,a)=>a.length?`<h3 class="sg">${t}</h3>${a.map((x,i)=>`<div class="rk"><b class="n">${i+1}</b><span class="grow">${esc(x[0])}</span><span class="mu">${x[1]} film</span></div>`).join('')}`:'';
   sheet(`<h2 class="l">Classifiche</h2>`+(top.length?`<h3 class="sg">I tuoi film migliori</h3>${top.map((m,i)=>`<button class="rk" onclick="openMovie('${m.id}')"><b class="n">${i+1}</b><div class="cov th">${m.cover?`<img src="${m.cover}" alt="">`:''}</div><span class="grow">${esc(m.title)}<small class="mu">${esc(m.year)}</small></span><span class="mu">★ ${m.rating}</span></button>`).join('')}`:'<p class="note">Dai un voto ai tuoi film per vedere la classifica.</p>')+tl('Registi più visti',tally('director'))+tl('Generi più visti',tally('genre')));
 }
+const SORTS={ins:'Predefinito (ordine di inserimento)',ya:'Anno: dal più vecchio',yd:'Anno: dal più recente',sa:'Stelle: dalla più bassa',sd:'Stelle: dalla più alta',dir:'Regista: dalla A alla Z'};
+function sortMovies(l){
+  const k=SORTS[st.sort]?st.sort:'ins',a=l.slice();if(k==='ins')return a;
+  const f={ya:m=>+m.year,yd:m=>+m.year,sa:m=>m.rating,sd:m=>m.rating,dir:m=>(m.director||'').trim().toLowerCase()}[k],dsc=k==='yd'||k==='sd';
+  return a.sort((p,q)=>{const x=f(p),y=f(q),nx=!x,ny=!y;
+    if(nx||ny)return (nx-ny)||p.title.localeCompare(q.title,'it');
+    const c=typeof x==='string'?x.localeCompare(y,'it'):x-y;return (dsc?-c:c)||p.title.localeCompare(q.title,'it')});
+}
+function sortSheet(){sheet(`<h2 class="l">Ordina i film</h2>${Object.keys(SORTS).map(k=>`<button class="rk so" onclick="setSort('${k}')"><span class="grow">${SORTS[k]}</span>${st.sort===k?'<b class="ck">✓</b>':''}</button>`).join('')}`)}
+function setSort(k){st.sort=k;try{localStorage.setItem('cineteca_sort',k)}catch(e){}closeSheet();render()}
 function backup(){
   sheet(`<h2 class="l">Impostazioni</h2><div class="f"><label>Chiave TMDB per cercare i film online</label><input id="tk" value="${esc(TK())}" placeholder="Incolla qui la tua chiave" oninput="setTk(this.value)"></div><p class="note" style="margin-top:8px">Gratis su themoviedb.org: Impostazioni, poi API. I dati dei film arrivano da TMDB, servizio non approvato né certificato da TMDB.</p><h2 class="l" style="font-size:20px;padding-top:14px">Backup</h2><p class="note">Copia i tuoi dati e conservali, per esempio in una nota. Per ripristinarli incollali qui sotto.</p>
   <div class="f"><textarea id="bk" placeholder="Incolla qui il backup da ripristinare"></textarea></div>
@@ -237,6 +250,6 @@ function backup(){
 }
 function copyBk(){const s=JSON.stringify(db);try{navigator.clipboard.writeText(s).then(()=>toast('Backup copiato'),()=>fb(s))}catch(e){fb(s)}}
 function fb(s){const t=$('#bk');t.value=s;t.select();toast('Copia il testo selezionato')}
-function restoreBk(){try{const d=JSON.parse($('#bk').value);if(!Array.isArray(d.folders)||!Array.isArray(d.movies))throw 0;db=d;save();closeSheet();st={fid:null,q:''};render();toast('Dati ripristinati')}catch(e){toast('Backup non valido')}}
+function restoreBk(){try{const d=JSON.parse($('#bk').value);if(!Array.isArray(d.folders)||!Array.isArray(d.movies))throw 0;db=d;save();closeSheet();st.fid=null;st.q='';render();toast('Dati ripristinati')}catch(e){toast('Backup non valido')}}
 render();
 </script></body></html>
