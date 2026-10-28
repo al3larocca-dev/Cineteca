@@ -1,1 +1,1 @@
-# Cineteca
+# CineTeca
