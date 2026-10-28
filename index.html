@@ -2,12 +2,8 @@
 <html lang="it"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cineteca</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff4f6d">
-<meta name="mobile-web-app-capable" content="yes">
-<link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
-
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#ff4f6d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js'))</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;800&family=Figtree:wght@400;500;600&display=swap">
 <style>
 :root{--bg:#f3f2fb;--sf:#fff;--sf2:#ebe9f8;--tx:#16173a;--mut:#666995;--ac:#ff4f6d;--ac2:#ff8a5c;--line:#e0def2;--glow:#ffd3df80;--sh:#2a237022;
@@ -76,13 +72,21 @@ h1{margin:0;font-size:36px;font-weight:800;letter-spacing:-1.3px;line-height:1}
 .dots{display:flex;gap:12px;flex-wrap:wrap}.dot{width:44px;height:44px;border-radius:50%;border:3px solid transparent;box-shadow:inset 0 0 0 2px var(--bg)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:110px;background:var(--tx);color:var(--bg);padding:11px 18px;border-radius:20px;font-size:14px;font-weight:500;z-index:40;max-width:85%}
 .note{color:var(--mut);font-size:14px;line-height:1.5;margin:0 0 6px}
+.lkb{display:inline-flex;align-items:center;gap:6px;margin-top:16px;color:var(--ac);font-weight:600}
+.sr{display:flex;gap:12px;align-items:center;width:100%;border:0;background:var(--sf);color:var(--tx);border-radius:14px;padding:8px;margin-top:8px;text-align:left;font:inherit}
+.sr img{width:40px;height:60px;border-radius:6px;object-fit:cover;background:var(--sf2)}.sr small{display:block;color:var(--mut)}
+.lk{display:inline-block;margin-top:8px;padding:8px 14px;border-radius:12px;background:var(--ac);color:#fff;font-size:14px;font-weight:600;text-decoration:none}
+.ti{font:800 22px var(--f1);letter-spacing:-.5px;margin:26px 0 0}.sg{font:600 15px var(--f2);color:var(--mut);margin:20px 0 6px}
+.strip{display:flex;gap:12px;overflow-x:auto;padding:4px 0 10px}.strip .pt{width:100px;flex:none}
+.rk{display:flex;align-items:center;gap:12px;width:100%;padding:10px 0;border:0;border-bottom:1px solid var(--line);background:none;color:var(--tx);font:inherit;font-size:15px;text-align:left}.rk small{display:block}
+.n{width:28px;height:28px;border-radius:50%;background:var(--sf2);display:grid;place-items:center;font-size:13px;flex:none}.th{width:40px;border-radius:8px;flex:none;box-shadow:none}.mu{color:var(--mut);font-size:13px}
 </style></head><body>
 <div id="app"></div>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Math.random().toString(36).slice(2,9);
-const I={search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="M15 5l-7 7 7 7"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',text:'<path d="M5 6h14M5 12h14M5 18h9"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',film:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',img:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-9 9"/>'};
+const I={search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="M15 5l-7 7 7 7"/>',edit:'<path d="M4 20h4L19 9l-4-4L4 16z"/>',tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',text:'<path d="M5 6h14M5 12h14M5 18h9"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',film:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',img:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-9 9"/>',trophy:'<path d="M8 4h8v6a4 4 0 0 1-8 0zM8 6H4v1a3 3 0 0 0 4 3M16 6h4v1a3 3 0 0 1-4 3M12 14v4M8 21h8"/>'};
 const ic=(n,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
 const FC=[['#5b4bff','#9a6bff'],['#ff4f6d','#ff8a5c'],['#12b5a6','#4ddc9a'],['#f2a31b','#ffd166'],['#2f80ed','#56ccf2'],['#d13fbf','#ff7ad9']];
 const PLAT=['Netflix','Prime Video','Disney+','NOW','Apple TV+','Paramount+','RaiPlay','Blu-ray/DVD'];
@@ -105,7 +109,7 @@ function render(keep){
   let h='';
   if(!st.fid){
     const res=st.q?db.movies.filter(match):[];
-    h=`<header><div class="top"><div class="grow"><h1>Cineteca</h1><div class="sub">${db.movies.length} film in ${db.folders.length} cartelle</div></div><button class="ib" onclick="backup()" aria-label="Backup">${ic('gear')}</button></div>${search('Cerca un film…')}</header>`;
+    h=`<header><div class="top"><div class="grow"><h1>Cineteca</h1><div class="sub">${db.movies.length} film in ${db.folders.length} cartelle</div></div><button class="ib" onclick="rank()" aria-label="Classifiche">${ic('trophy')}</button><button class="ib" onclick="backup()" aria-label="Impostazioni">${ic('gear')}</button></div>${search('Cerca un film…')}</header>`;
     if(st.q)h+=res.length?`<div class="g3">${res.map(poster).join('')}</div>`:emptyBox('search','Nessun risultato','Prova con un altro titolo o regista.');
     else if(!db.folders.length)h+=emptyBox('folder','Crea la prima cartella','Tocca + e dai un nome, per esempio “Thriller” o “Da rivedere”.');
     else h+=`<div class="g2">${db.folders.map(f=>{const g=grad(f.color);return `<button class="fold" style="--a:${g[0]};--b:${g[1]}" onclick="openFolder('${f.id}')">${fan(f)}<b>${esc(f.name)}</b><span>${cnt(f.id)} film</span></button>`}).join('')}</div>`;
@@ -126,7 +130,7 @@ onpopstate=()=>{if($('.ov'))closeSheet();else{pushed=false;st.fid=null;st.q='';r
 function sheet(html){closeSheet();const d=document.createElement('div');d.className='ov';d.innerHTML=`<div class="sh"><div class="grab"></div>${html}</div>`;d.onclick=e=>{if(e.target===d)closeSheet()};document.body.appendChild(d)}
 function closeSheet(){document.querySelectorAll('.ov').forEach(o=>o.remove())}
 function ask(msg,yes){onYes=yes;sheet(`<h2 class="l">${msg}</h2><p class="note">L’azione non si può annullare.</p><button class="btn" onclick="onYes();closeSheet()">Elimina</button><button class="btn s" onclick="closeSheet()">Annulla</button>`)}
-const row=(i,l,v)=>`<div class="ro"><div class="ico">${ic(i,20)}</div><div><div class="lb">${l}</div><div class="vl">${v?esc(v):'—'}</div></div></div>`;
+const row=(i,l,v,x='')=>`<div class="ro"><div class="ico">${ic(i,20)}</div><div><div class="lb">${l}</div><div class="vl">${v?esc(v):(x?'':'—')}${x?`<div>${x}</div>`:''}</div></div></div>`;
 
 function openMovie(id){
   const m=mv(id),f=fo(m.fid),g=f?grad(f.color):['#5b4bff','#9a6bff'];
@@ -135,21 +139,22 @@ function openMovie(id){
   <h2>${esc(m.title)}</h2>
   <div class="pills">${m.year?`<span class="pill">${esc(m.year)}</span>`:''}${m.genre?`<span class="pill">${esc(m.genre)}</span>`:''}</div>
   ${m.rating?`<div class="stars">${stars(m.rating)}</div>`:''}</div>
-  ${row('user','Regista',m.director)}${row('text','Trama',m.desc)}${row('tv','Dove vederlo',m.where)}${row('folder','Cartella',f&&f.name)}
+  ${row('user','Regista',m.director)}${row('text','Trama',m.desc)}${row('tv','Dove vederlo',m.where,/^https?:\/\//.test(m.link||'')?`<a class="lk" href="${esc(m.link)}" target="_blank" rel="noopener">Apri il link</a>`:'')}${row('folder','Cartella',f&&f.name)}<div id="sg"></div>
   <button class="btn" onclick="movieForm('${m.id}')">Modifica informazioni</button>
   <button class="btn d" onclick="ask('Eliminare questo film?',()=>{db.movies=db.movies.filter(x=>x.id!=='${m.id}');save();render()})">Elimina film</button>`);
+  suggest(m);
 }
 
 function movieForm(id){
-  const m=id?mv(id):{fid:st.fid};tmp={cover:m.cover||'',rating:m.rating||0};
+  const m=id?mv(id):{fid:st.fid};tmp={cover:m.cover||'',rating:m.rating||0,tmdb:m.tmdb||0,gids:m.gids||[],dir:m.dir||0};
   sheet(`<h2 class="l">${id?'Modifica film':'Nuovo film'}</h2><div class="f">
   <div class="hd"><div><button class="pick" onclick="$('#file').click()"><div class="cov" id="pv">${tmp.cover?`<img src="${tmp.cover}" alt="">`:`${ic('img',28)}Copertina`}</div></button><input type="file" id="file" accept="image/*" hidden onchange="pickCover(this)"></div>
   <div><label>Titolo *</label><input id="t" value="${esc(m.title)}" placeholder="Es. Il padrino"><label>Regista</label><input id="d" value="${esc(m.director)}"></div></div>
-  <div class="two"><div><label>Anno</label><input id="y" inputmode="numeric" maxlength="4" value="${esc(m.year)}"></div><div><label>Genere</label><input id="g" value="${esc(m.genre)}" placeholder="Drammatico"></div></div>
+  <button class="chip lkb" onclick="webSearch()">${ic('search',16)} Cerca online e compila</button><div id="sr"></div><div class="two"><div><label>Anno</label><input id="y" inputmode="numeric" maxlength="4" value="${esc(m.year)}"></div><div><label>Genere</label><input id="g" value="${esc(m.genre)}" placeholder="Drammatico"></div></div>
   <label>Breve descrizione</label><textarea id="s">${esc(m.desc)}</textarea>
   <label>Dove vederlo</label><input id="w" value="${esc(m.where)}" placeholder="Es. Netflix">
   <div class="chips">${PLAT.map(p=>`<button class="chip" onclick="$('#w').value='${p}'">${p}</button>`).join('')}</div>
-  <label>Cartella</label><select id="c">${db.folders.map(f=>`<option value="${f.id}" ${f.id===m.fid?'selected':''}>${esc(f.name)}</option>`).join('')}</select>
+  <label>Link per vederlo</label><input id="l" type="url" inputmode="url" value="${esc(m.link)}" placeholder="https://…"><label>Cartella</label><select id="c">${db.folders.map(f=>`<option value="${f.id}" ${f.id===m.fid?'selected':''}>${esc(f.name)}</option>`).join('')}</select>
   <label>Il tuo voto</label><div class="rt" id="r"></div></div>
   <button class="btn" onclick="saveMovie('${id||''}')">Salva film</button><button class="btn s" onclick="closeSheet()">Annulla</button>`);
   paint();
@@ -162,7 +167,7 @@ function pickCover(inp){
 function saveMovie(id){
   const t=$('#t').value.trim();if(!t){toast('Inserisci il titolo');return}
   if(!$('#c').value){toast('Crea prima una cartella');return}
-  const o={title:t,director:$('#d').value.trim(),year:$('#y').value.trim(),genre:$('#g').value.trim(),desc:$('#s').value.trim(),where:$('#w').value.trim(),fid:$('#c').value,cover:tmp.cover,rating:tmp.rating};
+  const o={title:t,director:$('#d').value.trim(),year:$('#y').value.trim(),genre:$('#g').value.trim(),desc:$('#s').value.trim(),where:$('#w').value.trim(),fid:$('#c').value,cover:tmp.cover,rating:tmp.rating,link:$('#l').value.trim(),tmdb:tmp.tmdb,gids:tmp.gids,dir:tmp.dir};
   if(id)Object.assign(mv(id),o);else db.movies.push({id:uid(),...o});
   save();closeSheet();render();if(id)openMovie(id);
 }
@@ -179,8 +184,54 @@ function saveFolder(id){
   save();closeSheet();render();
 }
 
+const I92='https://image.tmdb.org/t/p/w92',IMG='https://image.tmdb.org/t/p/w342';
+const TK=()=>{try{return localStorage.getItem('cineteca_tmdb')||''}catch(e){return ''}};
+function setTk(v){try{localStorage.setItem('cineteca_tmdb',v.trim())}catch(e){}}
+async function tm(path,p={}){
+  const k=TK();if(!k){toast('Inserisci prima la chiave TMDB in Impostazioni');throw 0}
+  const u=new URL('https://api.themoviedb.org/3'+path);u.searchParams.set('language','it-IT');
+  for(const x in p)u.searchParams.set(x,p[x]);
+  const o={};if(k.length>60)o.headers={Authorization:'Bearer '+k};else u.searchParams.set('api_key',k);
+  let r;try{r=await fetch(u,o)}catch(e){toast('Nessuna connessione');throw 0}
+  if(!r.ok){toast('Chiave TMDB non valida');throw 0}return r.json();
+}
+const dirOf=d=>((d.credits&&d.credits.crew)||[]).find(c=>c.job==='Director');
+async function webSearch(){
+  const q=$('#t').value.trim();if(!q){toast('Scrivi prima il titolo');return}
+  const sr=$('#sr');sr.innerHTML='<p class="note">Cerco…</p>';
+  try{const d=await tm('/search/movie',{query:q,include_adult:'false'});
+  sr.innerHTML=d.results.slice(0,6).map(r=>`<button class="sr" onclick="pickTmdb(${r.id})"><img src="${r.poster_path?I92+r.poster_path:''}" alt=""><span><b>${esc(r.title)}</b><small>${esc((r.release_date||'').slice(0,4))}</small></span></button>`).join('')||'<p class="note">Nessun risultato</p>'}catch(e){sr.innerHTML=''}
+}
+async function pickTmdb(id){
+  try{const d=await tm('/movie/'+id,{append_to_response:'credits,watch/providers'});
+  const dr=dirOf(d),it=((d['watch/providers']||{}).results||{}).IT||{},pv=(it.flatrate||[]).map(p=>p.provider_name),gn=d.genres||[];
+  tmp.cover=d.poster_path?IMG+d.poster_path:tmp.cover;tmp.tmdb=d.id;tmp.gids=gn.map(g=>g.id);tmp.dir=dr?dr.id:0;
+  const set=(i,v)=>{if(v)$(i).value=v};
+  set('#t',d.title);set('#d',dr&&dr.name);set('#y',(d.release_date||'').slice(0,4));set('#g',gn.slice(0,2).map(g=>g.name).join(', '));set('#s',d.overview);set('#w',pv.slice(0,3).join(', '));set('#l',it.link);
+  $('#pv').innerHTML=tmp.cover?`<img src="${tmp.cover}" alt="">`:ic('img',28);$('#sr').innerHTML='';toast('Dati compilati: controlla e salva');
+  }catch(e){}
+}
+async function suggest(m){
+  const el=$('#sg');if(!TK()||!el)return;
+  try{
+    if(!m.tmdb){const p={query:m.title};if(m.year)p.year=m.year;const r=(await tm('/search/movie',p)).results[0];if(!r)return;
+      const d=await tm('/movie/'+r.id,{append_to_response:'credits'}),dr=dirOf(d);m.tmdb=d.id;m.gids=(d.genres||[]).map(g=>g.id);m.dir=dr?dr.id:0;save()}
+    const none={results:[]},have=new Set(db.movies.map(x=>x.tmdb));
+    const [a,b]=await Promise.all([m.gids&&m.gids.length?tm('/discover/movie',{with_genres:m.gids.slice(0,2).join(','),sort_by:'vote_average.desc','vote_count.gte':1000}):none,m.dir?tm('/discover/movie',{with_crew:m.dir,sort_by:'popularity.desc'}):none]);
+    const strip=(t,l)=>{const r=l.results.filter(x=>x.id!==m.tmdb&&!have.has(x.id)&&x.poster_path).slice(0,10);return r.length?`<h3 class="sg">${t}</h3><div class="strip">${r.map(x=>`<button class="pt" onclick="addTm(${x.id})"><div class="cov"><img src="${IMG+x.poster_path}" alt=""></div><b>${esc(x.title)}</b></button>`).join('')}</div>`:''};
+    const h=strip('Dello stesso genere',a)+strip('Dello stesso regista',b);
+    if(h&&$('#sg')===el)el.innerHTML='<h2 class="ti">Ti potrebbero interessare</h2>'+h;
+  }catch(e){}
+}
+function addTm(id){closeSheet();movieForm();pickTmdb(id)}
+function rank(){
+  const top=db.movies.filter(m=>m.rating).sort((a,b)=>b.rating-a.rating||a.title.localeCompare(b.title)).slice(0,10);
+  const tally=k=>{const c={};db.movies.forEach(m=>String(m[k]||'').split(',').map(s=>s.trim()).filter(Boolean).forEach(v=>c[v]=(c[v]||0)+1));return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,5)};
+  const tl=(t,a)=>a.length?`<h3 class="sg">${t}</h3>${a.map((x,i)=>`<div class="rk"><b class="n">${i+1}</b><span class="grow">${esc(x[0])}</span><span class="mu">${x[1]} film</span></div>`).join('')}`:'';
+  sheet(`<h2 class="l">Classifiche</h2>`+(top.length?`<h3 class="sg">I tuoi film migliori</h3>${top.map((m,i)=>`<button class="rk" onclick="openMovie('${m.id}')"><b class="n">${i+1}</b><div class="cov th">${m.cover?`<img src="${m.cover}" alt="">`:''}</div><span class="grow">${esc(m.title)}<small class="mu">${esc(m.year)}</small></span><span class="mu">★ ${m.rating}</span></button>`).join('')}`:'<p class="note">Dai un voto ai tuoi film per vedere la classifica.</p>')+tl('Registi più visti',tally('director'))+tl('Generi più visti',tally('genre')));
+}
 function backup(){
-  sheet(`<h2 class="l">Backup</h2><p class="note">Copia i tuoi dati e conservali, per esempio in una nota. Per ripristinarli incollali qui sotto.</p>
+  sheet(`<h2 class="l">Impostazioni</h2><div class="f"><label>Chiave TMDB per cercare i film online</label><input id="tk" value="${esc(TK())}" placeholder="Incolla qui la tua chiave" oninput="setTk(this.value)"></div><p class="note" style="margin-top:8px">Gratis su themoviedb.org: Impostazioni, poi API. I dati dei film arrivano da TMDB, servizio non approvato né certificato da TMDB.</p><h2 class="l" style="font-size:20px;padding-top:14px">Backup</h2><p class="note">Copia i tuoi dati e conservali, per esempio in una nota. Per ripristinarli incollali qui sotto.</p>
   <div class="f"><textarea id="bk" placeholder="Incolla qui il backup da ripristinare"></textarea></div>
   <button class="btn" onclick="copyBk()">Copia backup</button><button class="btn s" onclick="restoreBk()">Ripristina dal testo incollato</button>`);
 }
@@ -188,5 +239,4 @@ function copyBk(){const s=JSON.stringify(db);try{navigator.clipboard.writeText(s
 function fb(s){const t=$('#bk');t.value=s;t.select();toast('Copia il testo selezionato')}
 function restoreBk(){try{const d=JSON.parse($('#bk').value);if(!Array.isArray(d.folders)||!Array.isArray(d.movies))throw 0;db=d;save();closeSheet();st={fid:null,q:''};render();toast('Dati ripristinati')}catch(e){toast('Backup non valido')}}
 render();
-</script><script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
-</body></html>
+</script></body></html>
