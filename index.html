@@ -15,7 +15,7 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 html,body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--f2)}
 button{font-family:inherit}:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
-#app{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:120px}
+#app{max-width:1100px;margin:0 auto;min-height:100vh;padding-bottom:120px}
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;padding:20px 18px 12px;background:radial-gradient(110% 120% at 0 0,var(--glow),transparent 65%),var(--bg)}
 h1,h2,.fold b{font-family:var(--f1)}
 h1{margin:0;font-size:36px;font-weight:800;letter-spacing:-1.3px;line-height:1}
@@ -24,8 +24,8 @@ h1{margin:0;font-size:36px;font-weight:800;letter-spacing:-1.3px;line-height:1}
 .ib{width:44px;height:44px;border:0;border-radius:16px;background:var(--sf);color:var(--tx);display:grid;place-items:center;flex:none;box-shadow:0 2px 10px var(--sh)}
 .sb{position:relative;margin-top:18px}.sb svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--mut)}
 .search{width:100%;padding:14px 16px 14px 44px;border-radius:18px;border:0;background:var(--sf);color:var(--tx);font:inherit;font-size:16px;box-shadow:0 2px 10px var(--sh)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:10px 18px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 12px;padding:10px 18px}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;padding:10px 18px}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:20px 12px;padding:10px 18px}
 .fold{position:relative;height:188px;border:0;border-radius:26px;color:#fff;text-align:left;padding:0 15px 15px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:linear-gradient(160deg,var(--a),var(--b));box-shadow:0 10px 22px -8px var(--a)}
 .fold b{font-size:18px;line-height:1.15;word-break:break-word}.fold span{font-size:13px;opacity:.88;margin-top:3px}
 .p{position:absolute;left:50%;top:var(--y);width:66px;aspect-ratio:2/3;transform:translateX(calc(-50% + var(--x))) rotate(var(--r));border-radius:9px;overflow:hidden;background:#ffffff38;display:grid;place-items:center;color:#ffffffb0;box-shadow:0 8px 16px #0005}
@@ -38,9 +38,9 @@ h1{margin:0;font-size:36px;font-weight:800;letter-spacing:-1.3px;line-height:1}
 .empty{text-align:center;color:var(--mut);padding:56px 36px;line-height:1.5}
 .empty .ci{width:84px;height:84px;border-radius:50%;background:var(--sf);display:grid;place-items:center;margin:0 auto 18px;color:var(--ac);box-shadow:0 4px 16px var(--sh)}
 .empty h3{font:600 20px var(--f1);color:var(--tx);margin:0 0 6px}
-.fab{position:fixed;right:max(20px,calc(50% - 220px));bottom:calc(24px + env(safe-area-inset-bottom,0px));width:64px;height:64px;border-radius:22px;border:0;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;display:grid;place-items:center;box-shadow:0 12px 26px -4px #ff4f6d88;z-index:6}
+.fab{position:fixed;right:max(20px,calc((100vw - 1100px)/2 + 20px));bottom:calc(24px + env(safe-area-inset-bottom,0px));width:64px;height:64px;border-radius:22px;border:0;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;display:grid;place-items:center;box-shadow:0 12px 26px -4px #ff4f6d88;z-index:6}
 .ov{position:fixed;inset:0;background:#0a0a1f99;z-index:20;display:flex;align-items:flex-end;justify-content:center;animation:f .15s}
-.sh{position:relative;background:var(--bg);width:100%;max-width:480px;max-height:93%;overflow-y:auto;border-radius:30px 30px 0 0;padding:0 20px calc(26px + env(safe-area-inset-bottom,0px));animation:u .24s ease-out}
+.sh{position:relative;background:var(--bg);width:100%;max-width:560px;max-height:93%;overflow-y:auto;border-radius:30px 30px 0 0;padding:0 20px calc(26px + env(safe-area-inset-bottom,0px));animation:u .24s ease-out}
 @keyframes u{from{transform:translateY(70px);opacity:0}}@keyframes f{from{opacity:0}}
 .grab{width:42px;height:5px;border-radius:3px;background:#8a8ab088;margin:10px auto 0;position:relative;z-index:2}
 .hero{position:relative;margin:-15px -20px 6px;padding:34px 20px 14px;text-align:center;overflow:hidden}
@@ -82,7 +82,24 @@ h1{margin:0;font-size:36px;font-weight:800;letter-spacing:-1.3px;line-height:1}
 .n{width:28px;height:28px;border-radius:50%;background:var(--sf2);display:grid;place-items:center;font-size:13px;flex:none}.th{width:40px;border-radius:8px;flex:none;box-shadow:none}.mu{color:var(--mut);font-size:13px}
 .sbr{display:flex;gap:10px;align-items:center;margin-top:18px}.sbr .sb{margin:0;flex:1}.sortb{width:50px;height:50px;border-radius:18px}.sortb.on{background:var(--ac);color:#fff}
 .so{padding:16px 0;font-size:16px}.ck{color:var(--ac);font-size:18px}
+#splash{position:fixed;inset:0;z-index:100;background:#1c1262;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .45s}
+#splash.out{opacity:0;pointer-events:none}
+#splash img{width:112px;height:112px;border-radius:28px;box-shadow:0 18px 40px #0008;animation:pop .5s ease-out}
+#splash b{font:800 32px 'Bricolage Grotesque',system-ui,sans-serif;color:#fff;letter-spacing:-1px}
+@keyframes pop{from{transform:scale(.8);opacity:0}}
+@media (min-width:700px){.ov{align-items:center}.sh{border-radius:30px;max-height:88%}.grab{display:none}.hero{margin-top:-10px}}
+.btn:disabled{opacity:.4;box-shadow:none}
+#ob{position:fixed;inset:0;z-index:50;overflow-y:auto;background:radial-gradient(110% 60% at 0 0,var(--glow),transparent 65%),var(--bg)}
+.obc{max-width:460px;min-height:100%;margin:0 auto;padding:calc(36px + env(safe-area-inset-top,0px)) 24px calc(28px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column}
+.obc .body{flex:1}.obc h1{font-size:30px;text-align:center}
+.pg{display:flex;gap:8px;justify-content:center;margin-bottom:24px}.pg i{width:8px;height:8px;border-radius:4px;background:var(--line)}.pg i.on{width:26px;background:var(--ac)}
+.obi{width:124px;height:124px;margin:28px auto 26px;border-radius:30px;overflow:hidden;box-shadow:0 18px 36px -8px #000a}.obi img{width:100%;height:100%;display:block}
+.oh{font:800 26px var(--f1);letter-spacing:-.7px;margin:0 0 12px}
+.obp{color:var(--mut);line-height:1.55;font-size:16px;margin:12px 0 0}.obc h1+.obp{text-align:center}
+.obl{margin:14px 0;padding:16px 18px 16px 36px;background:var(--sf);border-radius:18px;line-height:1.55;font-size:15px}.obl li{margin:8px 0}
+.chk{display:flex;gap:12px;align-items:flex-start;margin:16px 0 8px;font-size:15px;line-height:1.4}.chk input{width:24px;height:24px;flex:none;accent-color:var(--ac)}
 </style></head><body>
+<div id="splash"><img src="icon-192.png" alt=""><b>CineTeca</b></div>
 <div id="app"></div>
 <script>
 const $=s=>document.querySelector(s);
@@ -96,7 +113,8 @@ const grad=c=>{const p=FC.find(x=>x[0]===c);return p?[p[0],p[1]]:[c,c+'cc']};
 let db={folders:[],movies:[]},st={fid:null,q:'',sort:'ins'},tmp=null,pushed=false,onYes=null;
 try{const r=localStorage.getItem('cineteca');if(r)db=JSON.parse(r)}catch(e){}
 try{const so=localStorage.getItem('cineteca_sort');if(['ins','ya','yd','sa','sd','dir'].includes(so))st.sort=so}catch(e){}
-function save(){try{localStorage.setItem('cineteca',JSON.stringify(db))}catch(e){toast('Memoria piena: usa copertine più piccole')}}
+function save(){persist();if(fu){clearTimeout(syncT);syncT=setTimeout(syncNow,1500)}}
+function persist(){try{localStorage.setItem('cineteca',JSON.stringify(db))}catch(e){toast('Memoria piena: usa copertine più piccole')}}
 function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
 const fo=id=>db.folders.find(f=>f.id===id),mv=id=>db.movies.find(m=>m.id===id);
 const cnt=id=>db.movies.filter(m=>m.fid===id).length;
@@ -144,7 +162,7 @@ function openMovie(id){
   ${m.rating?`<div class="stars">${stars(m.rating)}</div>`:''}</div>
   ${row('user','Regista',m.director)}${row('text','Trama',m.desc)}${row('tv','Dove vederlo',m.where,/^https?:\/\//.test(m.link||'')?`<a class="lk" href="${esc(m.link)}" target="_blank" rel="noopener">Apri il link</a>`:'')}${row('folder','Cartella',f&&f.name)}<div id="sg"></div>
   <button class="btn" onclick="movieForm('${m.id}')">Modifica informazioni</button>
-  <button class="btn d" onclick="ask('Eliminare questo film?',()=>{db.movies=db.movies.filter(x=>x.id!=='${m.id}');save();render()})">Elimina film</button>`);
+  <button class="btn d" onclick="ask('Eliminare questo film?',()=>{tomb(['${m.id}']);db.movies=db.movies.filter(x=>x.id!=='${m.id}');save();render()})">Elimina film</button>`);
   suggest(m);
 }
 
@@ -170,7 +188,7 @@ function pickCover(inp){
 function saveMovie(id){
   const t=$('#t').value.trim();if(!t){toast('Inserisci il titolo');return}
   if(!$('#c').value){toast('Crea prima una cartella');return}
-  const o={title:t,director:$('#d').value.trim(),year:$('#y').value.trim(),genre:$('#g').value.trim(),desc:$('#s').value.trim(),where:$('#w').value.trim(),fid:$('#c').value,cover:tmp.cover,rating:tmp.rating,link:$('#l').value.trim(),tmdb:tmp.tmdb,gids:tmp.gids,dir:tmp.dir};
+  const o={title:t,director:$('#d').value.trim(),year:$('#y').value.trim(),genre:$('#g').value.trim(),desc:$('#s').value.trim(),where:$('#w').value.trim(),fid:$('#c').value,cover:tmp.cover,rating:tmp.rating,link:$('#l').value.trim(),tmdb:tmp.tmdb,gids:tmp.gids,dir:tmp.dir,u:Date.now()};
   if(id)Object.assign(mv(id),o);else db.movies.push({id:uid(),...o});
   save();closeSheet();render();if(id)openMovie(id);
 }
@@ -179,11 +197,11 @@ function folderForm(id){
   const f=id?fo(id):{name:'',color:FC[db.folders.length%FC.length][0]};tmp={color:f.color};
   sheet(`<h2 class="l">${id?'Modifica cartella':'Nuova cartella'}</h2><div class="f"><label>Nome</label><input id="n" value="${esc(f.name)}" placeholder="Es. Thriller, Da rivedere…">
   <label>Colore</label><div class="dots">${FC.map(c=>`<button class="dot" data-c="${c[0]}" style="background:linear-gradient(135deg,${c[0]},${c[1]});border-color:${c[0]===f.color?'var(--tx)':'transparent'}" onclick="tmp.color='${c[0]}';document.querySelectorAll('.dot').forEach(x=>x.style.borderColor=x.dataset.c===tmp.color?'var(--tx)':'transparent')" aria-label="Colore"></button>`).join('')}</div></div>
-  <button class="btn" onclick="saveFolder('${id||''}')">Salva cartella</button>${id?`<button class="btn d" onclick="ask('Eliminare la cartella e i suoi film?',()=>{db.movies=db.movies.filter(m=>m.fid!=='${id}');db.folders=db.folders.filter(x=>x.id!=='${id}');save();st.fid=null;render()})">Elimina cartella</button>`:''}`);
+  <button class="btn" onclick="saveFolder('${id||''}')">Salva cartella</button>${id?`<button class="btn d" onclick="ask('Eliminare la cartella e i suoi film?',()=>{tomb(db.movies.filter(m=>m.fid==='${id}').map(m=>m.id).concat('${id}'));db.movies=db.movies.filter(m=>m.fid!=='${id}');db.folders=db.folders.filter(x=>x.id!=='${id}');save();st.fid=null;render()})">Elimina cartella</button>`:''}`);
 }
 function saveFolder(id){
   const n=$('#n').value.trim();if(!n){toast('Inserisci un nome');return}
-  if(id){const f=fo(id);f.name=n;f.color=tmp.color}else db.folders.push({id:uid(),name:n,color:tmp.color});
+  if(id){const f=fo(id);f.name=n;f.color=tmp.color;f.u=Date.now()}else db.folders.push({id:uid(),name:n,color:tmp.color,u:Date.now()});
   save();closeSheet();render();
 }
 
@@ -233,6 +251,93 @@ function rank(){
   const tl=(t,a)=>a.length?`<h3 class="sg">${t}</h3>${a.map((x,i)=>`<div class="rk"><b class="n">${i+1}</b><span class="grow">${esc(x[0])}</span><span class="mu">${x[1]} film</span></div>`).join('')}`:'';
   sheet(`<h2 class="l">Classifiche</h2>`+(top.length?`<h3 class="sg">I tuoi film migliori</h3>${top.map((m,i)=>`<button class="rk" onclick="openMovie('${m.id}')"><b class="n">${i+1}</b><div class="cov th">${m.cover?`<img src="${m.cover}" alt="">`:''}</div><span class="grow">${esc(m.title)}<small class="mu">${esc(m.year)}</small></span><span class="mu">★ ${m.rating}</span></button>`).join('')}`:'<p class="note">Dai un voto ai tuoi film per vedere la classifica.</p>')+tl('Registi più visti',tally('director'))+tl('Generi più visti',tally('genre')));
 }
+/*FB*/
+let fb=null,fu=null,syncT=0,fbErr=false,busy=false;
+const FB_DEFAULT=null;
+const fbCfg=()=>{if(FB_DEFAULT&&FB_DEFAULT.apiKey)return FB_DEFAULT;try{return JSON.parse(localStorage.getItem('cineteca_fb')||'null')}catch(e){return null}};
+const loadJs=u=>new Promise((ok,ko)=>{const t=document.createElement('script');t.src=u;t.onload=ok;t.onerror=ko;document.head.appendChild(t)});
+async function fbInit(){
+  const c=fbCfg();if(!c||fb)return;
+  try{const B='https://www.gstatic.com/firebasejs/10.14.1/firebase-';
+    await loadJs(B+'app-compat.js');await Promise.all([loadJs(B+'auth-compat.js'),loadJs(B+'firestore-compat.js')]);
+    firebase.initializeApp(c);fb={a:firebase.auth(),d:firebase.firestore()};fbErr=false;
+    fb.a.onAuthStateChanged(u=>{fu=u;upd();if(u)syncNow()});
+  }catch(e){fbErr=true}
+}
+function tomb(a){db.dels=db.dels||{};a.forEach(i=>db.dels[i]=Date.now())}
+function upd(){const e=$('#acc');if(e)e.innerHTML=accHtml();if($('#ob')&&ob.step===2)obRender()}
+function accHtml(){
+  if(!fbCfg())return `<p class="note">Per salvare i film su un account e aprirli da più dispositivi incolla qui la configurazione Firebase.</p><div class="f"><textarea id="fc" placeholder="apiKey: &quot;…&quot;, authDomain: &quot;…&quot;, projectId: &quot;…&quot;"></textarea></div><button class="btn s" onclick="saveFb()">Salva configurazione</button>`;
+  if(!fb)return `<p class="note">${fbErr?'Impossibile collegarsi ora: controlla la connessione.':'Carico…'}</p>`;
+  if(fu)return `<p class="note">Accesso eseguito come <b>${esc(fu.email)}</b>. I film si sincronizzano da soli.</p><button class="btn s" onclick="syncNow().then(()=>toast('Sincronizzato'))">Sincronizza ora</button><button class="btn d" onclick="fb.a.signOut()">Esci</button>`;
+  return `<div class="f"><label>Email</label><input id="em" type="email" autocomplete="email"><label>Password (almeno 6 caratteri)</label><input id="pw" type="password" autocomplete="current-password"></div><button class="btn" onclick="acc('in')">Accedi</button><button class="btn s" onclick="acc('new')">Crea account</button>`;
+}
+function saveFb(){
+  const c={};[...$('#fc').value.matchAll(/"?(\w+)"?\s*:\s*"([^"]*)"/g)].forEach(m=>c[m[1]]=m[2]);
+  if(!c.apiKey||!c.projectId){toast('Configurazione non valida');return}
+  try{localStorage.setItem('cineteca_fb',JSON.stringify(c))}catch(e){}
+  upd();fbInit().then(upd);
+}
+async function acc(mode){
+  const e=$('#em').value.trim(),p=$('#pw').value;if(!e||p.length<6){toast('Inserisci email e password (almeno 6 caratteri)');return}
+  try{if(mode==='new')await fb.a.createUserWithEmailAndPassword(e,p);else await fb.a.signInWithEmailAndPassword(e,p)}
+  catch(x){toast(x.code==='auth/email-already-in-use'?'Account già esistente: usa Accedi':x.code==='auth/invalid-credential'||x.code==='auth/wrong-password'?'Email o password errate':'Errore: '+(x.code||'riprova'))}
+}
+async function syncNow(){
+  if(!fu||!fb||busy)return;busy=true;
+  try{
+    db.folders.concat(db.movies).forEach(x=>{if(!x.u)x.u=1});
+    const col=fb.d.collection('users').doc(fu.uid).collection('items'),cl={};
+    (await col.get()).forEach(d=>cl[d.id]=d.data());
+    const loc={};db.folders.forEach(f=>loc[f.id]=Object.assign({t:'f'},f));db.movies.forEach(m=>loc[m.id]=Object.assign({t:'m'},m));
+    db.dels=db.dels||{};const push=[];let pulled=false;
+    new Set([...Object.keys(cl),...Object.keys(loc),...Object.keys(db.dels)]).forEach(id=>{
+      const c=cl[id],l=loc[id],dl=db.dels[id]||0,lu=l?l.u:dl,cu=c?(c.u||0):0;
+      if(lu>cu)push.push([id,l?l:{del:true,u:dl}]);
+      else if(cu>lu){pulled=true;
+        db.folders=db.folders.filter(x=>x.id!==id);db.movies=db.movies.filter(x=>x.id!==id);
+        if(c.del)db.dels[id]=c.u;
+        else{delete db.dels[id];const o=Object.assign({},c,{id}),t=o.t;delete o.t;(t==='f'?db.folders:db.movies).push(o)}}
+    });
+    for(let i=0;i<push.length;i+=400){const b=fb.d.batch();push.slice(i,i+400).forEach(p=>b.set(col.doc(p[0]),JSON.parse(JSON.stringify(p[1]))));await b.commit()}
+    persist();if(pulled)render();
+  }catch(e){toast('Sincronizzazione non riuscita')}
+  busy=false;
+}
+/*ENDFB*/
+/*OB*/
+let ob={step:0,chk:false};
+const obBtn=(l,f,c='')=>`<button class="btn ${c}" onclick="${f}">${l}</button>`;
+function obStart(){
+  let seen='1',terms=false;
+  try{seen=localStorage.getItem('cineteca_ob');terms=!!localStorage.getItem('cineteca_terms')}catch(e){}
+  if(seen)return;
+  if(db.folders.length||db.movies.length){try{localStorage.setItem('cineteca_ob','1')}catch(e){}return}
+  const d=document.createElement('div');d.id='ob';document.body.appendChild(d);
+  ob.step=terms?2:0;ob.chk=terms;obRender();
+}
+function obGo(n){ob.step=n;obRender();const d=$('#ob');if(d)d.scrollTop=0}
+function obTerms(){try{localStorage.setItem('cineteca_terms','1')}catch(e){}obGo(2)}
+function obKey(){const v=$('#ok').value.trim();if(v)setTk(v);obGo(4)}
+function obDone(){try{localStorage.setItem('cineteca_ob','1')}catch(e){}const d=$('#ob');if(d)d.remove();render()}
+function obAcc(){
+  if(!fb)return `<p class="note">${fbErr?'Impossibile collegarsi ora. Puoi continuare senza account e farlo più tardi da ⚙️.':'Carico…'}</p>`;
+  if(fu)return `<p class="note">Accesso eseguito come <b>${esc(fu.email)}</b>. I tuoi film si sincronizzano da soli.</p>`;
+  return `<div class="f"><label>Email</label><input id="em" type="email" autocomplete="email"><label>Password (almeno 6 caratteri)</label><input id="pw" type="password" autocomplete="current-password"></div><button class="btn" onclick="acc('in')">Accedi</button><button class="btn s" onclick="acc('new')">Crea account gratuito</button>`;
+}
+function obRender(){
+  const d=$('#ob');if(!d)return;
+  if(ob.step===2&&!fbCfg())ob.step=3;
+  const n=ob.step;let b='',f='';
+  if(n===0){b=`<div class="obi"><img src="icon-192.png" alt=""></div><h1>Benvenuto in CineTeca</h1><p class="obp">La tua raccolta personale dei film che hai visto: cartelle, copertine, voti, dove guardarli e consigli su cosa vedere dopo.</p>`;f=obBtn('Inizia','obGo(1)')}
+  else if(n===1){b=`<h2 class="oh">Prima di iniziare</h2><ul class="obl"><li>CineTeca è un’app personale e gratuita: non puoi usarla a fini commerciali, né venderla o mostrarci pubblicità.</li><li>I dati dei film (trame, copertine, dove vederli) arrivano da TMDB. Ti impegni a rispettare le sue <a href="https://www.themoviedb.org/terms-of-use" target="_blank" rel="noopener" style="color:var(--ac)">condizioni d’uso</a> e a usare la tua chiave personale.</li><li>Questo prodotto usa l’API di TMDB ma non è approvato né certificato da TMDB.</li></ul><label class="chk"><input type="checkbox" id="ck" ${ob.chk?'checked':''} onchange="ob.chk=this.checked;$('#obn').disabled=!this.checked"><span>Ho letto e accetto queste regole</span></label>`;f=`<button class="btn" id="obn" ${ob.chk?'':'disabled'} onclick="obTerms()">Accetta e continua</button>`}
+  else if(n===2){b=`<h2 class="oh">Il tuo account</h2><p class="obp" style="text-align:left;margin-top:0">Crea un account gratuito per ritrovare i tuoi film su altri dispositivi e dal browser del computer. Se preferisci puoi continuare senza: i film restano solo su questo telefono.</p><div id="oba" style="margin-top:8px">${obAcc()}</div>`;f=fu?obBtn('Continua','obGo(3)'):obBtn('Continua senza account','obGo(3)','s')}
+  else if(n===3){b=`<h2 class="oh">La tua chiave TMDB</h2><p class="obp" style="text-align:left;margin-top:0">Per cercare i film online e compilare i dati da soli serve una chiave gratuita e personale.</p><ol class="obl"><li>Crea un account su themoviedb.org</li><li>Vai in Impostazioni, poi API, e richiedi la chiave per uso personale</li><li>Copiala e incollala qui sotto</li></ol><a class="lk" href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">Apri TMDB</a><div class="f"><label>Chiave</label><input id="ok" value="${esc(TK())}" placeholder="Incolla qui la chiave"></div>`;f=obBtn('Salva e continua','obKey()')+obBtn('Salta per ora','obGo(4)','s')}
+  else{b=`<div class="obi"><img src="icon-192.png" alt=""></div><h1>Tutto pronto!</h1><p class="obp">Crea una cartella con il + e aggiungi il tuo primo film. Account e chiave TMDB si cambiano in ogni momento da ⚙️.</p>`;f=obBtn('Inizia','obDone()')}
+  d.innerHTML=`<div class="obc"><div class="pg">${[0,1,2,3,4].map(i=>`<i class="${i===n?'on':''}"></i>`).join('')}</div><div class="body">${b}</div><div>${f}</div></div>`;
+}
+function hideSplash(){const s=$('#splash');if(!s)return;setTimeout(()=>{s.classList.add('out');setTimeout(()=>s.remove(),450)},Math.max(0,1100-performance.now()))}
+/*ENDOB*/
 const SORTS={ins:'Predefinito (ordine di inserimento)',ya:'Anno: dal più vecchio',yd:'Anno: dal più recente',sa:'Stelle: dalla più bassa',sd:'Stelle: dalla più alta',dir:'Regista: dalla A alla Z'};
 function sortMovies(l){
   const k=SORTS[st.sort]?st.sort:'ins',a=l.slice();if(k==='ins')return a;
@@ -244,12 +349,13 @@ function sortMovies(l){
 function sortSheet(){sheet(`<h2 class="l">Ordina i film</h2>${Object.keys(SORTS).map(k=>`<button class="rk so" onclick="setSort('${k}')"><span class="grow">${SORTS[k]}</span>${st.sort===k?'<b class="ck">✓</b>':''}</button>`).join('')}`)}
 function setSort(k){st.sort=k;try{localStorage.setItem('cineteca_sort',k)}catch(e){}closeSheet();render()}
 function backup(){
-  sheet(`<h2 class="l">Impostazioni</h2><div class="f"><label>Chiave TMDB per cercare i film online</label><input id="tk" value="${esc(TK())}" placeholder="Incolla qui la tua chiave" oninput="setTk(this.value)"></div><p class="note" style="margin-top:8px">Gratis su themoviedb.org: Impostazioni, poi API. I dati dei film arrivano da TMDB, servizio non approvato né certificato da TMDB.</p><h2 class="l" style="font-size:20px;padding-top:14px">Backup</h2><p class="note">Copia i tuoi dati e conservali, per esempio in una nota. Per ripristinarli incollali qui sotto.</p>
+  sheet(`<h2 class="l">Impostazioni</h2><div class="f"><label>Chiave TMDB per cercare i film online</label><input id="tk" value="${esc(TK())}" placeholder="Incolla qui la tua chiave" oninput="setTk(this.value)"></div><p class="note" style="margin-top:8px">Gratis su themoviedb.org: Impostazioni, poi API. I dati dei film arrivano da TMDB, servizio non approvato né certificato da TMDB.</p><h2 class="l" style="font-size:20px;padding-top:14px">Account</h2><div id="acc">${accHtml()}</div><h2 class="l" style="font-size:20px;padding-top:14px">Backup</h2><p class="note">Copia i tuoi dati e conservali, per esempio in una nota. Per ripristinarli incollali qui sotto.</p>
   <div class="f"><textarea id="bk" placeholder="Incolla qui il backup da ripristinare"></textarea></div>
   <button class="btn" onclick="copyBk()">Copia backup</button><button class="btn s" onclick="restoreBk()">Ripristina dal testo incollato</button>`);
+  if(fbCfg())fbInit().then(upd);
 }
-function copyBk(){const s=JSON.stringify(db);try{navigator.clipboard.writeText(s).then(()=>toast('Backup copiato'),()=>fb(s))}catch(e){fb(s)}}
-function fb(s){const t=$('#bk');t.value=s;t.select();toast('Copia il testo selezionato')}
-function restoreBk(){try{const d=JSON.parse($('#bk').value);if(!Array.isArray(d.folders)||!Array.isArray(d.movies))throw 0;db=d;save();closeSheet();st.fid=null;st.q='';render();toast('Dati ripristinati')}catch(e){toast('Backup non valido')}}
-render();
+function copyBk(){const s=JSON.stringify(db);try{navigator.clipboard.writeText(s).then(()=>toast('Backup copiato'),()=>fbk(s))}catch(e){fbk(s)}}
+function fbk(s){const t=$('#bk');t.value=s;t.select();toast('Copia il testo selezionato')}
+function restoreBk(){try{const d=JSON.parse($('#bk').value);if(!Array.isArray(d.folders)||!Array.isArray(d.movies))throw 0;db=d;db.folders.concat(db.movies).forEach(x=>{x.u=Date.now()});save();closeSheet();st.fid=null;st.q='';render();toast('Dati ripristinati')}catch(e){toast('Backup non valido')}}
+render();if(fbCfg())fbInit().then(upd);obStart();hideSplash();
 </script></body></html>
